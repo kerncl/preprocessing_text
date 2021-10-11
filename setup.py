@@ -20,7 +20,7 @@ setuptools.setup(
     description='Preprocessing package',
     long_description=long_description,
     long_description_content_type='text/markdown',
-    package=setuptools.find_packages(),
+    packages=setuptools.find_packages(),
     python_requires='>=3.6',
     install_requires=dependencies,
 )
