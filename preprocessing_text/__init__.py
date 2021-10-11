@@ -98,18 +98,18 @@ CONTRACTIONS = {
 
 nlp = spacy.load('en_core_web_sm')
 
-_get_word_counts = lambda x: len(str(x).split())
-_get_charcounts = lambda x: len(''.join(x.split()))
-_get_avg_wordlength = lambda x: _get_charcounts(x) / _get_word_counts(x)
-_get_stopwords_counts = lambda x: len([_ for _ in x.split() if _ in stop_words])
-_get_hashtag_counts = lambda x: len([_ for _ in x.split() if _.startswith('#')])
-_get_mention_counts = lambda x: len([_ for _ in x.split() if _.startswith('@')])
-_get_digit_counts = lambda x: len([_ for _ in x.split() if _.isdigit()])
-_get_uppercase_counts = lambda x: len([_ for _ in x.split() if _.isupper()])
-_get_emails = lambda x: len(re.findall(r'([a-z0-9+._-]+@[a-z0-9+._-]+\.[a-z0-9+_-]+\b)', x))
+get_word_counts = lambda x: len(str(x).split())
+get_charcounts = lambda x: len(''.join(x.split()))
+get_avg_wordlength = lambda x: get_charcounts(x) / get_word_counts(x)
+get_stopwords_counts = lambda x: len([_ for _ in x.split() if _ in stop_words])
+get_hashtag_counts = lambda x: len([_ for _ in x.split() if _.startswith('#')])
+get_mention_counts = lambda x: len([_ for _ in x.split() if _.startswith('@')])
+get_digit_counts = lambda x: len([_ for _ in x.split() if _.isdigit()])
+get_uppercase_counts = lambda x: len([_ for _ in x.split() if _.isupper()])
+get_emails = lambda x: len(re.findall(r'([a-z0-9+._-]+@[a-z0-9+._-]+\.[a-z0-9+_-]+\b)', x))
 
 
-def _count_exp(x):
+def count_exp(x):
     if isinstance(x, str):
         for key, value in CONTRACTIONS.items():
             if key in x:
@@ -117,37 +117,37 @@ def _count_exp(x):
     return x
 
 
-def _get_emails(x):
+def get_emails(x):
     emails = re.findall(r'([a-z0-9+._-]+@[a-z0-9+._-]+\.[a-z0-9+_-]+\b)', x)
     return len(emails), emails
 
 
-def _get_urls(x):
+def get_urls(x):
     urls = re.findall(r'(http|https|ftp|ssh)://([\w_-]+(?:(?:\.[\w_-]+)+))([\w.,@?^=%&:/~+#-]*[\w@?^=%&/~+#-])?', x)
     return len(urls), urls
 
 
-def _get_value_counts(df, col):
+def get_value_counts(df, col):
     text = ' '.join(df[col]).split()
     return pd.Series(text).value_counts()
 
 
-def _remove_common_words(x, freq, n=20):
+def remove_common_words(x, freq, n=20):
     fn = freq[:n]
     return ' '.join([_ for _ in x.split() if _ not in fn])
 
 
-def _remove_rarewords(x, freq, n=20):
+def remove_rarewords(x, freq, n=20):
     fn = freq.tail(n)
     return ' '.join([_ for _ in x.split() if _ not in fn])
 
 
-_remove_emails = lambda x: re.sub(r'([a-z0-9+._-]+@[a-z0-9+._-]+\.[a-z0-9+_-]+)', "", x)
-_remove_urls = lambda x: re.sub(r'(http|https|ftp|ssh)://([\w_-]+(?:(?:\.[\w_-]+)+))([\w.,@?^=%&:/~+#-]*[\w@?^=%&/~+#-])?','', x)
-_remove_rt = lambda x: re.sub(r'\b\rt\b','',x).strip()
-_remove_special_chars = lambda x: ' '.join(re.sub(r'[^\w]+','',x).split())
-_remove_html_tags = lambda x: BeautifulSoup(x, 'lxml').get_text().strip()
-_remove_accented_chars = lambda x: unicodedata.normalize('NFKD',x).encode('ascii', 'ignore').decode('utf-8', 'ignore')
-_remove_stopwords = lambda x: ' '.join([_ for _ in x.split() if _ not in stop_words])
-_make_base = lambda x: ' '.join([token.text if token.lemma_ == '-PRON-' or token.lemma_ == 'be' else token.lemma_ for token in nlp(str(x))])
-_spelling_correction = lambda x: TextBlob.correct()
+remove_emails = lambda x: re.sub(r'([a-z0-9+._-]+@[a-z0-9+._-]+\.[a-z0-9+_-]+)', "", x)
+remove_urls = lambda x: re.sub(r'(http|https|ftp|ssh)://([\w_-]+(?:(?:\.[\w_-]+)+))([\w.,@?^=%&:/~+#-]*[\w@?^=%&/~+#-])?','', x)
+remove_rt = lambda x: re.sub(r'\b\rt\b','',x).strip()
+remove_special_chars = lambda x: ' '.join(re.sub(r'[^\w]+',' ',x).split())
+remove_html_tags = lambda x: BeautifulSoup(x, 'lxml').get_text().strip()
+remove_accented_chars = lambda x: unicodedata.normalize('NFKD',x).encode('ascii', 'ignore').decode('utf-8', 'ignore')
+remove_stopwords = lambda x: ' '.join([_ for _ in x.split() if _ not in stop_words])
+make_base = lambda x: ' '.join([token.text if token.lemma_ == '-PRON-' or token.lemma_ == 'be' else token.lemma_ for token in nlp(str(x))])
+spelling_correction = lambda x: TextBlob.correct()
