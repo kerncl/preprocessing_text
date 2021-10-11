@@ -14,7 +14,7 @@ dependencies = [
 
 setuptools.setup(
     name='preprocessing_text',
-    version=version,
+    version=str(version.__version__),
     author='linnkern',
     author_email='kerncl@hotmail.com',
     description='Preprocessing package',
