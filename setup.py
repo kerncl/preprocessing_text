@@ -1,5 +1,5 @@
 import setuptools
-# from preprocessing_text import _version as version
+from preprocessing_text import _version as version
 
 with open('README.md', 'r') as f:
     long_description = f.read()
@@ -14,8 +14,8 @@ dependencies = [
 
 setuptools.setup(
     name='preprocessing_text',
-#     version=str(version.__version__),
-    version='0.0.2'
+    version=str(version.__version__),
+#     version='0.0.2'
     author='linnkern',
     author_email='kerncl@hotmail.com',
     description='Preprocessing package',
