@@ -12,16 +12,33 @@ dependencies = [
     'bs4',
 ]
 
+# setuptools.setup(
+#     name='preprocessing_text',
+#     version=str(version.__version__),
+# #     version='0.0.2'
+#     author='linnkern',
+#     author_email='kerncl@hotmail.com',
+#     description='Preprocessing package',
+#     long_description=long_description,
+#     long_description_content_type='text/markdown',
+#     packages=setuptools.find_packages(),
+#     python_requires='>=3.6',
+#     install_requires=dependencies,
+# )
+
+
 setuptools.setup(
-    name='preprocessing_text',
-    version=str(version.__version__),
-#     version='0.0.2'
-    author='linnkern',
-    author_email='kerncl@hotmail.com',
-    description='Preprocessing package',
-    long_description=long_description,
-    long_description_content_type='text/markdown',
-    packages=setuptools.find_packages(),
-    python_requires='>=3.6',
-    install_requires=dependencies,
-)
+	name = 'preprocess_text', #this should be unique
+	version = '0.0.3',
+	author = 'Laxmi Kant',
+	author_email = 'udemy@kgptalkie.com',
+	description = 'This is preprocessing package',
+	long_description = long_description,
+	long_description_content_type = 'text/markdown',
+	packages = setuptools.find_packages(),
+	classifiers = [
+	'Programming Language :: Python :: 3',
+	'License :: OSI Aproved :: MIT License',
+	"Operating System :: OS Independent"],
+	python_requires = '>=3.5'
+	)
