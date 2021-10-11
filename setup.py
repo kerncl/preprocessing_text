@@ -29,7 +29,7 @@ dependencies = [
 
 setuptools.setup(
 	name = 'preprocess_text', #this should be unique
-	version = str(version.__version__)',
+	version = str(version.__version__),
 	author = 'linnkern',
 	author_email = 'kerncl@hotmail.com',
 	description = 'This is preprocessing package',
