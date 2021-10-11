@@ -29,9 +29,9 @@ dependencies = [
 
 setuptools.setup(
 	name = 'preprocess_text', #this should be unique
-	version = '0.0.3',
-	author = 'Laxmi Kant',
-	author_email = 'udemy@kgptalkie.com',
+	version = str(version.__version__)',
+	author = 'linnkern',
+	author_email = 'kerncl@hotmail.com',
 	description = 'This is preprocessing package',
 	long_description = long_description,
 	long_description_content_type = 'text/markdown',
