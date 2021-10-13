@@ -159,3 +159,7 @@ def get_ngram(df, col, ngram_range):
 	ngram = vectorizer.vocabulary_
 	ngram = sorted(ngram.items(), key = lambda x: x[1], reverse=True)
 	return ngram
+
+def remove_dups_char(x):
+	x = re.sub("(.)\\1{2,}", "\\1", x)
+	return x
