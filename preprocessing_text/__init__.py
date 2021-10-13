@@ -9,6 +9,7 @@ import spacy
 from spacy.lang.en.stop_words import STOP_WORDS as stop_words
 from bs4 import BeautifulSoup
 from textblob import TextBlob
+from sklearn.feature_extraction.text import CountVectorizer
 
 CONTRACTIONS = {
     "ain't": "am not",
@@ -151,3 +152,10 @@ remove_accented_chars = lambda x: unicodedata.normalize('NFKD',x).encode('ascii'
 remove_stopwords = lambda x: ' '.join([_ for _ in x.split() if _ not in stop_words])
 make_base = lambda x: ' '.join([token.text if token.lemma_ == '-PRON-' or token.lemma_ == 'be' else token.lemma_ for token in nlp(str(x))])
 spelling_correction = lambda x: TextBlob(x).correct()
+
+def get_ngram(df, col, ngram_range):
+	vectorizer = CountVectorizer(ngram_range=(ngram_range, ngram_range))
+	vectorizer.fit_transform(df[col])
+	ngram = vectorizer.vocabulary_
+	ngram = sorted(ngram.items(), key = lambda x: x[1], reverse=True)
+	return ngram
